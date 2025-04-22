@@ -1001,6 +1001,7 @@ _data = {
 polygon = PackedVector2Array(-72.7273, 186.667, 84.8485, 186.667, 109.091, 213.333, -96.9697, 213.333)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_4ntmi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

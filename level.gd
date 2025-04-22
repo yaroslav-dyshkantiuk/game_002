@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var light: DirectionalLight2D = $DirectionalLight2D
-@onready var point_light_2d: PointLight2D = $PointLight2D
-@onready var point_light_2d_2: PointLight2D = $PointLight2D2
+@onready var light: DirectionalLight2D = $Light/DirectionalLight2D
+@onready var point_light_2d: PointLight2D = $Light/PointLight2D
+@onready var point_light_2d_2: PointLight2D = $Light/PointLight2D2
 @onready var day_text: Label = $CanvasLayer/DayText
 @onready var animation_player: AnimationPlayer = $CanvasLayer/AnimationPlayer
 
