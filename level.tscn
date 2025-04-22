@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://c0aqkwqg4d3iw"]
+[gd_scene load_steps=19 format=4 uid="uid://c0aqkwqg4d3iw"]
 
 [ext_resource type="Texture2D" uid="uid://cbkwr347o65s7" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_f2txt"]
 [ext_resource type="Script" uid="uid://c57wpcncewxlt" path="res://level.gd" id="1_n6hdu"]
@@ -473,6 +473,58 @@ func _process(_delta: float) -> void:
  
 "
 
+[sub_resource type="Animation" id="Animation_i2t4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_km5ld"]
+resource_name = "day_text_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.705882)]
+}
+
+[sub_resource type="Animation" id="Animation_8cye3"]
+resource_name = "day_text_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.705882), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2orkt"]
+_data = {
+&"RESET": SubResource("Animation_i2t4f"),
+&"day_text_fade_in": SubResource("Animation_km5ld"),
+&"day_text_fade_out": SubResource("Animation_8cye3")
+}
+
 [sub_resource type="GDScript" id="GDScript_n6hdu"]
 script/source = "extends Node2D
 
@@ -557,6 +609,20 @@ theme_override_font_sizes/font_size = 30
 text = "GOLD"
 script = SubResource("GDScript_km5ld")
 
+[node name="DayText" type="Label" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 523.0
+offset_top = 163.0
+offset_right = 682.0
+offset_bottom = 273.0
+theme_override_font_sizes/font_size = 80
+text = "DAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_2orkt")
+}
+
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_n6hdu")
 
@@ -565,12 +631,13 @@ wait_time = 3.0
 autostart = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+enabled = false
 energy = 0.95
 blend_mode = 1
 range_layer_min = -1
 
 [node name="DayNight" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 20.0
 autostart = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
