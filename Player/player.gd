@@ -21,21 +21,9 @@ var state = MOVE
 var run_speed: int = 1
 var combo = false
 var attack_coldown = false
+var player_position
 
 func _physics_process(delta: float) -> void:
-	match state:
-		MOVE:
-			move_state()
-		ATTACK:
-			attack_state()
-		ATTACK2:
-			attack2_state()
-		ATTACK3:
-			attack3_state() 
-		BLOCK:
-			block_state()
-		SLIDE:
-			slide_state()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -51,8 +39,25 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		get_tree().change_scene_to_file("res://menu.tscn")
 	
+	match state:
+		MOVE:
+			move_state()
+		ATTACK:
+			attack_state()
+		ATTACK2:
+			attack2_state()
+		ATTACK3:
+			attack3_state() 
+		BLOCK:
+			block_state()
+		SLIDE:
+			slide_state()
 
 	move_and_slide()
+
+	player_position = self.position
+	Signals.emit_signal("player_position_update", player_position)
+
 
 func move_state() -> void:
 	var direction := Input.get_axis("left", "right")
