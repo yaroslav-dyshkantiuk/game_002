@@ -13,14 +13,18 @@ var state: int = 0:
 				idle_state()
 			ATTACK:
 				attack_state()
+
 var player
 var direction
+var damage = 20
+var player_is_dead = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	Signals.connect("player_position_update", Callable (self, "_on_player_positon_update"))
+	Signals.connect("player_died", Callable(self, "_on_player_died"))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -44,12 +48,17 @@ func idle_state():
 	state = CHASE
 	
 func attack_state():
+	if player_is_dead:
+		state = IDLE
+		return
 	animation_player.play("Attack")
 	await animation_player.animation_finished
 	$AttackDirection/AttackRange/CollisionShape2D.disabled = true
 	state = IDLE
 	
 func chase_state():
+	if player_is_dead:
+		return
 	direction = (player - self.position).normalized()
 	if direction.x < 0:
 		animated_sprite_2d.flip_h = true
@@ -57,4 +66,10 @@ func chase_state():
 	else:
 		animated_sprite_2d.flip_h = false
 		$AttackDirection.scale = Vector2(1,1)
-	
+
+func _on_hit_box_area_entered(_area: Area2D) -> void:
+	Signals.emit_enemy_attack(damage)
+
+func _on_player_died():
+	player_is_dead = true
+	state = IDLE

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c0aqkwqg4d3iw"]
+[gd_scene load_steps=22 format=4 uid="uid://c0aqkwqg4d3iw"]
 
 [ext_resource type="Texture2D" uid="uid://cbkwr347o65s7" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_f2txt"]
 [ext_resource type="Script" uid="uid://c57wpcncewxlt" path="res://level.gd" id="1_n6hdu"]
@@ -8,7 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dx647r4jwsl0s" path="res://Build/shop.tscn" id="4_1ainy"]
 [ext_resource type="Texture2D" uid="uid://dx7fpnulffgdt" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="4_km5ld"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://oak_woods_v1.0/decorations/circle.png" id="8_km5ld"]
+[ext_resource type="Texture2D" uid="uid://djw72jhi7yv5a" path="res://assets/Sprite-0003.png" id="9_aicyk"]
 [ext_resource type="PackedScene" uid="uid://dvdorwrrbfuyl" path="res://Mobs/mushroom.tscn" id="9_i2t4f"]
+[ext_resource type="Texture2D" uid="uid://dptob6gyju64a" path="res://assets/Sprite-0001.png" id="10_8b0r0"]
+[ext_resource type="Texture2D" uid="uid://blheotd64i4pi" path="res://assets/Sprite-0002.png" id="11_h6smj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2t4f"]
 texture = ExtResource("4_km5ld")
@@ -587,6 +590,7 @@ position = Vector2(249, 557)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 26.0
 offset_top = 17.0
 offset_right = 141.0
@@ -596,6 +600,7 @@ text = "HP"
 script = SubResource("GDScript_1ainy")
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 25.0
 offset_top = 56.0
 offset_right = 129.0
@@ -617,6 +622,20 @@ text = "DAY"
 libraries = {
 &"": SubResource("AnimationLibrary_2orkt")
 }
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.862745)
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 193.0
+offset_bottom = 61.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("9_aicyk")
+texture_over = ExtResource("10_8b0r0")
+texture_progress = ExtResource("11_h6smj")
+tint_over = Color(0.729412, 0.580392, 0.34902, 1)
+tint_progress = Color(0.741176, 0.184314, 0.14902, 1)
 
 [node name="DayNight" type="Timer" parent="."]
 wait_time = 20.0
@@ -649,4 +668,5 @@ energy = 0.95
 blend_mode = 1
 range_layer_min = -1
 
+[connection signal="health_changed" from="Player/Player" to="." method="_on_player_health_changed"]
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
