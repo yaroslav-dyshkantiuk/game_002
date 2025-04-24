@@ -1,11 +1,12 @@
-[gd_scene load_steps=103 format=3 uid="uid://b0h3a8xurv71p"]
+[gd_scene load_steps=104 format=3 uid="uid://b0h3a8xurv71p"]
 
-[ext_resource type="Script" uid="uid://c7da1uywudglw" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="Script" uid="uid://c7da1uywudglw" path="res://scenes/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://446efwy7ycaa" path="res://oak_woods_v1.0/character/char_blue.png" id="1_l8h54"]
 [ext_resource type="Texture2D" uid="uid://ck57xcrasqr3s" path="res://oak_woods_v1.0/character/blue/char_blue_1.png" id="2_gwnis"]
 [ext_resource type="Texture2D" uid="uid://m6hubl37jhfa" path="res://oak_woods_v1.0/character/blue/char_blue_2.png" id="3_k53q1"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://oak_woods_v1.0/decorations/circle.png" id="5_k53q1"]
 [ext_resource type="PackedScene" uid="uid://dqqfqqv8uix3r" path="res://scenes/damageBox/damage_box.tscn" id="6_fhl08"]
+[ext_resource type="PackedScene" uid="uid://cd5178xdidmx2" path="res://scenes/Player/stats.tscn" id="7_a06cl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvfyp"]
 
@@ -678,6 +679,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("stats")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stamina_consumption"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_k53q1"]
 length = 0.3
@@ -731,6 +746,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("stats")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stamina_consumption"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_fhl08"]
 length = 0.8
@@ -769,6 +798,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("stats")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stamina_consumption"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_vtle1"]
@@ -1005,6 +1048,20 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Slide"]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("stats")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stamina_consumption"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_dkpta"]
 loop_mode = 1
@@ -1064,9 +1121,8 @@ shape = SubResource("CapsuleShape2D_hvfyp")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -13)
 sprite_frames = SubResource("SpriteFrames_l8h54")
-animation = &"Attack3"
+animation = &"Block"
 autoplay = "Idle"
-frame = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.3, 2.3)
@@ -1110,6 +1166,9 @@ collision_mask = 32
 position = Vector2(-7, 1)
 disabled = false
 
+[node name="stats" parent="." instance=ExtResource("7_a06cl")]
+
 [connection signal="area_entered" from="AttackDirection/DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="no_stamina" from="stats" to="." method="_on_stats_no_stamina"]
 
 [editable path="AttackDirection/DamageBox"]

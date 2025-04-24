@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var light_animation: AnimationPlayer = $Light/LightAnimation
 @onready var day_text: Label = $CanvasLayer/DayText
-@onready var health_bar: TextureProgressBar = $CanvasLayer/HealthBar
 @onready var player: CharacterBody2D = $Player/Player
 
 enum {
@@ -16,8 +15,6 @@ var state: int = MORNING
 var day_count: int
 
 func _ready() -> void:
-	health_bar.max_value = player.max_health
-	health_bar.value = health_bar.max_value
 	day_count = 0
 	morning_state()
 
@@ -40,6 +37,3 @@ func morning_state():
 
 func evening_state():
 	light_animation.play("sunset")
-
-func _on_player_health_changed(new_health: Variant) -> void:
-	health_bar.value = new_health
