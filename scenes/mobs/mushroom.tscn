@@ -1,6 +1,6 @@
 [gd_scene load_steps=57 format=3 uid="uid://dvdorwrrbfuyl"]
 
-[ext_resource type="Script" uid="uid://b2xfi2h0ywwrm" path="res://Mobs/mushroom.gd" id="1_3ua80"]
+[ext_resource type="Script" uid="uid://b2xfi2h0ywwrm" path="res://scenes/mobs/mushroom.gd" id="1_3ua80"]
 [ext_resource type="Texture2D" uid="uid://bwl7pula4h733" path="res://assets/Mushroom/Attack.png" id="1_sjuu0"]
 [ext_resource type="Texture2D" uid="uid://di7n36k6je2dq" path="res://assets/Mushroom/Take Hit.png" id="2_selrt"]
 [ext_resource type="Texture2D" uid="uid://cqenr7qk2l8uk" path="res://assets/Mushroom/Death.png" id="3_ufykn"]
@@ -625,7 +625,7 @@ script = ExtResource("7_xshu0")
 
 [node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
 collision_layer = 32
-collision_mask = 0
+collision_mask = 64
 
 [node name="HitBox" parent="AttackDirection/DamageBox" index="1"]
 collision_layer = 0
@@ -640,6 +640,7 @@ position = Vector2(0, -26)
 scale = Vector2(0.15, 0.15)
 
 [connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="area_entered" from="AttackDirection/DamageBox/HurtBox" to="MobHealth" method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="AttackDirection/DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="damage_received" from="MobHealth" to="." method="_on_mob_health_damage_received"]
 [connection signal="no_health" from="MobHealth" to="." method="_on_mob_health_no_health"]
