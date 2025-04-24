@@ -477,60 +477,86 @@ func _process(_delta: float) -> void:
  
 "
 
-[sub_resource type="Animation" id="Animation_i2t4f"]
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i2t4f"]
+polygon = PackedVector2Array(-5007, 583, -5007, 655, 5007, 654, 5006, 586)
+
+[sub_resource type="Animation" id="Animation_aicyk"]
+resource_name = "sunrise"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.95, 0.2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CanvasLayer/DayText:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 3, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.745098), Color(1, 1, 1, 0.745098), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8b0r0"]
+resource_name = "sunset"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.2, 0.95]
+}
+
+[sub_resource type="Animation" id="Animation_h6smj"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DayText:modulate")
+tracks/0/path = NodePath("Sun:energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [0.95]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CanvasLayer/DayText:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_km5ld"]
-resource_name = "day_text_fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DayText:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.705882)]
-}
-
-[sub_resource type="Animation" id="Animation_8cye3"]
-resource_name = "day_text_fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DayText:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.705882), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2orkt"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h6smj"]
 _data = {
-&"RESET": SubResource("Animation_i2t4f"),
-&"day_text_fade_in": SubResource("Animation_km5ld"),
-&"day_text_fade_out": SubResource("Animation_8cye3")
+&"RESET": SubResource("Animation_h6smj"),
+&"sunrise": SubResource("Animation_aicyk"),
+&"sunset": SubResource("Animation_8b0r0")
 }
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i2t4f"]
-polygon = PackedVector2Array(-5007, 583, -5007, 655, 5007, 654, 5006, 586)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_n6hdu")
@@ -618,11 +644,6 @@ offset_bottom = 273.0
 theme_override_font_sizes/font_size = 80
 text = "DAY"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
-libraries = {
-&"": SubResource("AnimationLibrary_2orkt")
-}
-
 [node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.862745)
 offset_left = 17.0
@@ -644,6 +665,7 @@ autostart = true
 [node name="Light" type="Node" parent="."]
 
 [node name="PointLight2D" type="PointLight2D" parent="Light"]
+visible = false
 position = Vector2(174, 546)
 scale = Vector2(0.2725, 0.225)
 color = Color(1, 0.909804, 0.709804, 1)
@@ -652,6 +674,7 @@ shadow_enabled = true
 texture = ExtResource("8_km5ld")
 
 [node name="PointLight2D2" type="PointLight2D" parent="Light"]
+visible = false
 position = Vector2(73.8125, 547.722)
 scale = Vector2(0.297969, 0.266805)
 color = Color(1, 0.909804, 0.709804, 1)
@@ -662,11 +685,15 @@ texture = ExtResource("8_km5ld")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Light"]
 occluder = SubResource("OccluderPolygon2D_i2t4f")
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Light"]
-enabled = false
+[node name="Sun" type="DirectionalLight2D" parent="Light"]
 energy = 0.95
 blend_mode = 1
 range_layer_min = -1
+
+[node name="LightAnimation" type="AnimationPlayer" parent="Light"]
+libraries = {
+&"": SubResource("AnimationLibrary_h6smj")
+}
 
 [connection signal="health_changed" from="Player/Player" to="." method="_on_player_health_changed"]
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]

@@ -4,6 +4,9 @@ enum {
 	IDLE,
 	ATTACK,
 	CHASE,
+	DAMAGE,
+	DEATH,
+	RECOVER,
 }
 var state: int = 0:
 	set(value):
@@ -13,11 +16,18 @@ var state: int = 0:
 				idle_state()
 			ATTACK:
 				attack_state()
+			DAMAGE:
+				damage_state()
+			DEATH:
+				death_state()
+			RECOVER:
+				recover_state()
 
 var player
 var direction
 var damage = 20
 var player_is_dead = false
+var health = 100
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -25,6 +35,7 @@ var player_is_dead = false
 func _ready() -> void:
 	Signals.connect("player_position_update", Callable (self, "_on_player_positon_update"))
 	Signals.connect("player_died", Callable(self, "_on_player_died"))
+	Signals.connect("player_attack", Callable(self, "_on_damage_received"))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -43,8 +54,6 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 
 func idle_state():
 	animation_player.play("Idle")
-	await get_tree().create_timer(1).timeout
-	$AttackDirection/AttackRange/CollisionShape2D.disabled = false
 	state = CHASE
 	
 func attack_state():
@@ -53,8 +62,7 @@ func attack_state():
 		return
 	animation_player.play("Attack")
 	await animation_player.animation_finished
-	$AttackDirection/AttackRange/CollisionShape2D.disabled = true
-	state = IDLE
+	state = RECOVER
 	
 func chase_state():
 	if player_is_dead:
@@ -67,9 +75,32 @@ func chase_state():
 		animated_sprite_2d.flip_h = false
 		$AttackDirection.scale = Vector2(1,1)
 
+func damage_state():
+	animation_player.play("Damage")
+	await animation_player.animation_finished
+	state = IDLE
+
+func death_state():
+	animation_player.play("Death")
+	await  animation_player.animation_finished
+	queue_free()
+
+func recover_state():
+	animation_player.play("Recover")
+	await  animation_player.animation_finished
+	state = IDLE
+
 func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_enemy_attack(damage)
 
 func _on_player_died():
 	player_is_dead = true
 	state = IDLE
+
+func _on_damage_received(player_damage):
+	health -= player_damage
+	if health <= 0:
+		state = DEATH
+	else:
+		state = IDLE
+		state = DAMAGE

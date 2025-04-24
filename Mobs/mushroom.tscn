@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dvdorwrrbfuyl"]
+[gd_scene load_steps=55 format=3 uid="uid://dvdorwrrbfuyl"]
 
 [ext_resource type="Script" uid="uid://b2xfi2h0ywwrm" path="res://Mobs/mushroom.gd" id="1_selrt"]
 [ext_resource type="Texture2D" uid="uid://bwl7pula4h733" path="res://assets/Mushroom/Attack.png" id="1_sjuu0"]
@@ -87,6 +87,38 @@ atlas = ExtResource("4_xshu0")
 region = Rect2(300, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m46rv"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufykn"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xshu0"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ua80"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_768lt"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq103"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5wbd"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7486l"]
+atlas = ExtResource("4_xshu0")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kumnj"]
 atlas = ExtResource("4_xshu0")
 region = Rect2(450, 0, 150, 150)
 
@@ -206,6 +238,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ufykn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xshu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ua80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_768lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq103")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5wbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7486l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kumnj")
+}],
+"loop": false,
+"name": &"Recover",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qmmnp")
 }, {
 "duration": 1.0,
@@ -233,6 +294,45 @@ animations = [{
 "name": &"Run",
 "speed": 8.0
 }]
+
+[sub_resource type="Animation" id="Animation_ufykn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_l5wbd"]
 length = 0.8
@@ -299,9 +399,21 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Damage"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kumnj"]
-length = 0.8
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -325,6 +437,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Death"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_eex22"]
@@ -354,6 +490,57 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Idle"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_a3bwr"]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Recover"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/AttackRange/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ynu3j"]
 loop_mode = 1
@@ -382,21 +569,6 @@ tracks/1/keys = {
 "values": ["Run"]
 }
 
-[sub_resource type="Animation" id="Animation_ufykn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a3bwr"]
 _data = {
 &"Attack": SubResource("Animation_l5wbd"),
@@ -404,11 +576,12 @@ _data = {
 &"Death": SubResource("Animation_kumnj"),
 &"Idle": SubResource("Animation_eex22"),
 &"RESET": SubResource("Animation_ufykn"),
+&"Recover": SubResource("Animation_a3bwr"),
 &"Run": SubResource("Animation_ynu3j")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_selrt"]
-size = Vector2(19, 18)
+size = Vector2(25, 18)
 
 [node name="Mushroom" type="CharacterBody2D"]
 collision_layer = 4
@@ -420,9 +593,9 @@ shape = SubResource("CapsuleShape2D_768lt")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_jq103")
-animation = &"Attack"
+animation = &"Death"
 autoplay = "Idle"
-frame = 7
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -433,13 +606,18 @@ autoplay = "Idle"
 [node name="AttackDirection" type="Node2D" parent="."]
 
 [node name="AttackRange" type="Area2D" parent="AttackDirection"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
-position = Vector2(14.5, 0)
+position = Vector2(17.5, 0)
 shape = SubResource("RectangleShape2D_selrt")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
+position = Vector2(17.5, 0)
+shape = SubResource("RectangleShape2D_selrt")
+disabled = true
 
 [node name="DamageBox" parent="AttackDirection" instance=ExtResource("7_ufykn")]
 
