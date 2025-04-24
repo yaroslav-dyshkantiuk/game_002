@@ -27,7 +27,6 @@ var player
 var direction
 var damage = 20
 var player_is_dead = false
-var health = 100
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -35,7 +34,6 @@ var health = 100
 func _ready() -> void:
 	Signals.connect("player_position_update", Callable (self, "_on_player_positon_update"))
 	Signals.connect("player_died", Callable(self, "_on_player_died"))
-	Signals.connect("player_attack", Callable(self, "_on_damage_received"))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -97,10 +95,9 @@ func _on_player_died():
 	player_is_dead = true
 	state = IDLE
 
-func _on_damage_received(player_damage):
-	health -= player_damage
-	if health <= 0:
-		state = DEATH
-	else:
-		state = IDLE
-		state = DAMAGE
+func _on_mob_health_no_health() -> void:
+	state = DEATH
+
+func _on_mob_health_damage_received() -> void:
+	state = IDLE
+	state = DAMAGE
