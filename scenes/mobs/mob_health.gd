@@ -7,6 +7,8 @@ signal damage_received()
 @onready var damage_text: Label = $DamageText
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+@export var max_health = 100
+
 var health = 100:
 	set (value):
 		health = value
@@ -18,7 +20,8 @@ var health = 100:
 
 func _ready() -> void:
 	damage_text.modulate = 0
-	health_bar.max_value = health
+	health_bar.max_value = max_health
+	health = max_health
 	health_bar.visible = false
 
 func _on_hurt_box_area_entered(_area: Area2D) -> void:

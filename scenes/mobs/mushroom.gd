@@ -70,6 +70,8 @@ func damage_state():
 
 func death_state():
 	animation_player.play("Death")
+	print("death_state")
+	Signals.emit_enemy_died(position)
 	await  animation_player.animation_finished
 	queue_free()
 
@@ -82,7 +84,9 @@ func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_enemy_attack(damage)
 
 func _on_mob_health_no_health() -> void:
-	state = DEATH
+	print("_on_mob_health_no_health")
+	if state != DEATH:
+		state = DEATH
 
 func _on_mob_health_damage_received() -> void:
 	state = IDLE

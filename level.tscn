@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://c0aqkwqg4d3iw"]
+[gd_scene load_steps=20 format=4 uid="uid://c0aqkwqg4d3iw"]
 
 [ext_resource type="Texture2D" uid="uid://cbkwr347o65s7" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_f2txt"]
 [ext_resource type="Script" uid="uid://c57wpcncewxlt" path="res://level.gd" id="1_n6hdu"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dx7fpnulffgdt" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="4_km5ld"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://oak_woods_v1.0/decorations/circle.png" id="8_km5ld"]
 [ext_resource type="PackedScene" uid="uid://cxcte6vbvx6e0" path="res://scenes/UI/pause_menu.tscn" id="9_2orkt"]
+[ext_resource type="PackedScene" uid="uid://b3kbt0lj02jpb" path="res://scenes/collectibles/coin.tscn" id="11_2orkt"]
+[ext_resource type="Script" uid="uid://dam5m5l1or0x3" path="res://scripts/collectibles.gd" id="11_aicyk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2t4f"]
 texture = ExtResource("4_km5ld")
@@ -650,6 +652,12 @@ range_layer_min = -1
 libraries = {
 &"": SubResource("AnimationLibrary_h6smj")
 }
+
+[node name="Collectibles" type="Node2D" parent="."]
+script = ExtResource("11_aicyk")
+
+[node name="Coin" parent="Collectibles" instance=ExtResource("11_2orkt")]
+position = Vector2(296, 558)
 
 [connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
