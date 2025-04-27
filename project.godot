@@ -24,6 +24,10 @@ Global="*res://scripts/global.gd"
 
 enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://dxusel6afxrxm"
+
 [input]
 
 left={

@@ -8,7 +8,7 @@ func _ready() -> void:
 func _on_enemy_died(enemy_position):
 	for i in randi_range(1, 5):
 		coin_spawn(enemy_position)
-		print("coin")
+		await get_tree().create_timer(0.05).timeout
 
 func coin_spawn(pos):
 	var coin = coin_preload.instantiate()
