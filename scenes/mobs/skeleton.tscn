@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=3 uid="uid://du8wpjkxj1ffp"]
 
 [ext_resource type="Script" uid="uid://b0qdf0g6tx1ks" path="res://scenes/mobs/skeleton.gd" id="1_7hjwy"]
-[ext_resource type="Texture2D" uid="uid://c4lhuppj7dmkb" path="res://oak_woods_v1.0/Skeleton/Take Hit.png" id="1_wwbpb"]
-[ext_resource type="Texture2D" uid="uid://0dxhfx3tiq3o" path="res://oak_woods_v1.0/Skeleton/Death.png" id="2_7hjwy"]
-[ext_resource type="Texture2D" uid="uid://cajosvin4pfvo" path="res://oak_woods_v1.0/Skeleton/Idle.png" id="3_k1f85"]
-[ext_resource type="Texture2D" uid="uid://cbi8nec01pupn" path="res://oak_woods_v1.0/Skeleton/Walk.png" id="4_cjg8j"]
+[ext_resource type="Texture2D" uid="uid://c4lhuppj7dmkb" path="res://assets/sprites/oak_woods_v1.0/Skeleton/Take Hit.png" id="1_wwbpb"]
+[ext_resource type="Texture2D" uid="uid://0dxhfx3tiq3o" path="res://assets/sprites/oak_woods_v1.0/Skeleton/Death.png" id="2_7hjwy"]
+[ext_resource type="Texture2D" uid="uid://cajosvin4pfvo" path="res://assets/sprites/oak_woods_v1.0/Skeleton/Idle.png" id="3_k1f85"]
+[ext_resource type="Texture2D" uid="uid://cbi8nec01pupn" path="res://assets/sprites/oak_woods_v1.0/Skeleton/Walk.png" id="4_cjg8j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gikci"]
 radius = 8.0
