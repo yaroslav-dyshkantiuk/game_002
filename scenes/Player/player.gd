@@ -18,7 +18,6 @@ const JUMP_VELOCITY = -400.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stats: CanvasLayer = $stats
 
-var gold: int = 0
 var state = MOVE
 var run_speed = 1
 var combo = false
