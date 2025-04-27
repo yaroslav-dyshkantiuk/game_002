@@ -7,8 +7,6 @@ signal damage_received()
 @onready var damage_text: Label = $DamageText
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var player_dmg = 0
-
 var health = 100:
 	set (value):
 		health = value
@@ -19,17 +17,13 @@ var health = 100:
 			health_bar.visible = true
 
 func _ready() -> void:
-	Signals.connect("player_attack", Callable(self, "_on_damage_received"))
 	damage_text.modulate = 0
 	health_bar.max_value = health
 	health_bar.visible = false
 
-func _on_damage_received(player_damage):
-	player_dmg = player_damage
-
-func _on_hurt_box_area_entered(area: Area2D) -> void:
-	health -= player_dmg
-	damage_text.text = str(player_dmg)
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
+	health -= Global.player_damage
+	damage_text.text = str(Global.player_damage)
 	animation_player.stop()
 	animation_player.play("damage_text")
 	if health <= 0:

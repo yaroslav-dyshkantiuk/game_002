@@ -19,6 +19,7 @@ var day_count: int
 
 func _ready() -> void:
 	sun.enabled = true
+	Global.player_alive = true
 	day_count = 0
 	morning_state()
 

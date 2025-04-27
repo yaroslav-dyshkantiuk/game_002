@@ -9,7 +9,6 @@ enum {
 	SLIDE,
 	DAMAGE,
 	CAST,
-	DEATH,
 }
 
 const SPEED = 120.0
@@ -24,8 +23,6 @@ var state = MOVE
 var run_speed = 1
 var combo = false
 var attack_coldown = false
-var player_position
-var is_dead = false
 var damage_basic = 10
 var damage_multiplier = 1
 var damage_current
@@ -35,7 +32,7 @@ func _ready() -> void:
 	Signals.connect("enemy_attack", Callable (self, "_on_damage_received"))
 
 func _physics_process(delta: float) -> void:
-	if is_dead and state != DEATH:
+	if not Global.player_alive:
 		return
 	# Add the gravity.
 	if not is_on_floor():
@@ -43,7 +40,8 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > 0:
 		animation_player.play("Fall")
 	
-	damage_current = damage_basic * damage_multiplier
+	Global.player_damage = damage_basic * damage_multiplier
+	Global.player_position = self.position
 	
 	match state:
 		MOVE:
@@ -60,14 +58,7 @@ func _physics_process(delta: float) -> void:
 			slide_state()
 		DAMAGE:
 			damage_state()
-		DEATH:
-			death_state()
-
-	
 	move_and_slide()
-	
-	player_position = self.position
-	Signals.emit_player_position_update(player_position)
 
 func move_state() -> void:
 	var direction := Input.get_axis("left", "right")
@@ -153,22 +144,23 @@ func attack_freeze() -> void:
 	attack_coldown = false
 
 func damage_state():
-	velocity.x = 0
 	animation_player.play("Damage")
 	await animation_player.animation_finished
 	state = MOVE
 
-func death_state():
-	print("Death")
+func death():
+	stats.health = 0
+	Global.player_alive = false
 	velocity.x = 0
-	Signals.emit_player_died()
 	animation_player.play("Death")
 	await animation_player.animation_finished
 	queue_free()
 	get_tree().change_scene_to_file.call_deferred("res://scenes/menu.tscn")
 
 func _on_damage_received (enemy_damage):
-	if is_dead:
+	stats.health -= enemy_damage
+	if stats.health <= 0:
+		death()
 		return
 	if state == BLOCK:
 		enemy_damage /=2
@@ -176,16 +168,20 @@ func _on_damage_received (enemy_damage):
 		enemy_damage = 0
 	else:
 		state = DAMAGE
-	stats.health -= enemy_damage
-	if stats.health <= 0:
-		stats.health = 0
-		is_dead = true
-		state = DEATH
-
-func _on_hit_box_area_entered(_area: Area2D) -> void:
-	Signals.emit_player_attack(damage_current)
+		damage_animation()
 
 func _on_stats_no_stamina() -> void:
 	recovery = true
 	await get_tree().create_timer(2).timeout
 	recovery = false
+
+func damage_animation():
+	self.modulate = Color(1, 0, 0, 1)
+	velocity.x = 0
+	if $AnimatedSprite2D.flip_h == true:
+		velocity.x += 200
+	else:
+		velocity.x -= 200
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(self, 'velocity', Vector2.ZERO, 0.1)
+	tween.parallel().tween_property(self, 'modulate', Color(1, 1, 1, 1), 0.1)

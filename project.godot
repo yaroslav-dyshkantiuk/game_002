@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Signals="*res://scripts/signals.gd"
+Global="*res://scripts/global.gd"
 
 [editor_plugins]
 
