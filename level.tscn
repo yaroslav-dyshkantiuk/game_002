@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=4 uid="uid://c0aqkwqg4d3iw"]
+[gd_scene load_steps=18 format=4 uid="uid://c0aqkwqg4d3iw"]
 
 [ext_resource type="Texture2D" uid="uid://cbkwr347o65s7" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_f2txt"]
 [ext_resource type="Script" uid="uid://c57wpcncewxlt" path="res://level.gd" id="1_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://b0h3a8xurv71p" path="res://scenes/Player/player.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://7yudt2uxdvvd" path="res://oak_woods_v1.0/background/background_layer_2.png" id="2_1ainy"]
+[ext_resource type="Script" uid="uid://dkhwq1jfxghny" path="res://manager.gd" id="2_8cye3"]
 [ext_resource type="Texture2D" uid="uid://dvwy8nx3u425n" path="res://oak_woods_v1.0/background/background_layer_3.png" id="3_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://dx647r4jwsl0s" path="res://Build/shop.tscn" id="4_1ainy"]
 [ext_resource type="Texture2D" uid="uid://dx7fpnulffgdt" path="res://oak_woods_v1.0/oak_woods_tileset.png" id="4_km5ld"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://oak_woods_v1.0/decorations/circle.png" id="8_km5ld"]
+[ext_resource type="PackedScene" uid="uid://cxcte6vbvx6e0" path="res://scenes/UI/pause_menu.tscn" id="9_2orkt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i2t4f"]
 texture = ExtResource("4_km5ld")
@@ -528,6 +530,10 @@ _data = {
 [node name="Level" type="Node2D"]
 script = ExtResource("1_n6hdu")
 
+[node name="Manager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_8cye3")
+
 [node name="BG" type="ParallaxBackground" parent="."]
 layer = -1
 offset = Vector2(0, 255)
@@ -592,6 +598,21 @@ offset_bottom = 273.0
 theme_override_font_sizes/font_size = 80
 text = "DAY"
 
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_2orkt")]
+process_mode = 2
+
+[node name="MenuButton" type="Button" parent="CanvasLayer"]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_top = 21.0
+offset_right = -18.0
+offset_bottom = 61.0
+grow_horizontal = 0
+text = "menu"
+
 [node name="DayNight" type="Timer" parent="."]
 wait_time = 20.0
 autostart = true
@@ -631,4 +652,9 @@ libraries = {
 }
 
 [connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Quit" to="Manager" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="Manager" method="_on_menu_button_pressed"]
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
+
+[editable path="CanvasLayer/PauseMenu"]
