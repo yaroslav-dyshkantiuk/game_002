@@ -1,6 +1,7 @@
 extends Node
 
 @onready var pause_menu: Control = $"../CanvasLayer/PauseMenu"
+@onready var player: CharacterBody2D = $"../Player/Player"
 
 var game_paused: bool = false
 var save_path = "user://savegame.save"
@@ -29,10 +30,14 @@ func _on_menu_button_pressed() -> void:
 func save_game():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	file.store_var(Global.gold)
+	file.store_var(player.position.x)
+	file.store_var(player.position.y)
 
 func load_game():
 	var file = FileAccess.open(save_path, FileAccess.READ)
 	Global.gold = file.get_var(Global.gold)
+	player.position.x = file.get_var(player.position.x)
+	player.position.y = file.get_var(player.position.y)
 
 func _on_save_pressed() -> void:
 	save_game()

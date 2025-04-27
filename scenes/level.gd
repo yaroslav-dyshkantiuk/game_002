@@ -35,6 +35,7 @@ func _on_day_night_timeout() -> void:
 			morning_state()
 		EVENING:
 			evening_state()
+	Signals.emit_day_time(state)
 
 func morning_state():
 	day_count +=1
