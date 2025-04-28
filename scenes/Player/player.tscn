@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://b0h3a8xurv71p"]
+[gd_scene load_steps=111 format=3 uid="uid://b0h3a8xurv71p"]
 
 [ext_resource type="Script" uid="uid://c7da1uywudglw" path="res://scenes/Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://446efwy7ycaa" path="res://assets/sprites/oak_woods_v1.0/character/char_blue.png" id="1_l8h54"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cd5178xdidmx2" path="res://scenes/Player/stats.tscn" id="7_a06cl"]
 [ext_resource type="PackedScene" uid="uid://dutkkpiea7tu6" path="res://scenes/UI/resourses.tscn" id="8_dl1wr"]
 [ext_resource type="PackedScene" uid="uid://2bl5cejlwwn4" path="res://scenes/light/lantern.tscn" id="8_wwtew"]
+[ext_resource type="PackedScene" uid="uid://ugih21wdba8l" path="res://scenes/leafs.tscn" id="9_wwtew"]
+[ext_resource type="PackedScene" uid="uid://cwrnupnbputxq" path="res://scenes/dust.tscn" id="10_uxo23"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvfyp"]
 
@@ -1034,6 +1036,23 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Run"]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"steps"
+}, {
+"args": [],
+"method": &"steps"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_gu6f8"]
 length = 0.8
@@ -1260,7 +1279,7 @@ shape = SubResource("CapsuleShape2D_hvfyp")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -13)
 sprite_frames = SubResource("SpriteFrames_l8h54")
-animation = &"Damage"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -1321,6 +1340,12 @@ libraries = {
 [node name="Lantern" parent="." instance=ExtResource("8_wwtew")]
 position = Vector2(-1, -9)
 scale = Vector2(0.0525, 0.0775)
+
+[node name="Leafs" parent="." instance=ExtResource("9_wwtew")]
+position = Vector2(0, 15)
+
+[node name="Dust" parent="." instance=ExtResource("10_uxo23")]
+position = Vector2(-1, -71)
 
 [connection signal="no_stamina" from="stats" to="." method="_on_stats_no_stamina"]
 

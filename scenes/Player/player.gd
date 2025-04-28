@@ -17,6 +17,8 @@ const JUMP_VELOCITY = -400.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stats: CanvasLayer = $stats
+@onready var leafs: GPUParticles2D = $Leafs
+@onready var dust: GPUParticles2D = $Dust
 
 var state = MOVE
 var run_speed = 1
@@ -58,6 +60,10 @@ func _physics_process(delta: float) -> void:
 		DAMAGE:
 			damage_state()
 	move_and_slide()
+
+func _process(_delta: float) -> void:
+	#dust.position = Global.player_position
+	pass
 
 func move_state() -> void:
 	var direction := Input.get_axis("left", "right")
@@ -184,3 +190,8 @@ func damage_animation():
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(self, 'velocity', Vector2.ZERO, 0.1)
 	tween.parallel().tween_property(self, 'modulate', Color(1, 1, 1, 1), 0.1)
+
+func steps():
+	leafs.emitting = true
+	leafs.one_shot = true
+	
