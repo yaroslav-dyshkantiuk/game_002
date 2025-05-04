@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5pb203x3qp1v"
-path="res://.godot/imported/speed_button_pressed.png-1004274f9f8b6b685cc70f64d9d939b8.ctex"
+uid="uid://cmfii36lltuob"
+path="res://.godot/imported/spell_button.png-e6608ef6ca952d081cf44a63ff801520.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/buttons/speed_button_pressed.png"
-dest_files=["res://.godot/imported/speed_button_pressed.png-1004274f9f8b6b685cc70f64d9d939b8.ctex"]
+source_file="res://assets/buttons/spell_button.png"
+dest_files=["res://.godot/imported/spell_button.png-e6608ef6ca952d081cf44a63ff801520.ctex"]
 
 [params]
 

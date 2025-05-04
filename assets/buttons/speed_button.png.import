@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7otl1v6c6nh1"
-path="res://.godot/imported/arrow_button_pressed.png-3892c27be292f9854cd1f07d28dd6162.ctex"
+uid="uid://c81dqba5mphyq"
+path="res://.godot/imported/speed_button.png-6da89974280e105ffb664b84b4425565.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/buttons/arrow_button_pressed.png"
-dest_files=["res://.godot/imported/arrow_button_pressed.png-3892c27be292f9854cd1f07d28dd6162.ctex"]
+source_file="res://assets/buttons/speed_button.png"
+dest_files=["res://.godot/imported/speed_button.png-6da89974280e105ffb664b84b4425565.ctex"]
 
 [params]
 

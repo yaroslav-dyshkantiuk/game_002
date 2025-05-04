@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4ricmr2s0cvd"
-path="res://.godot/imported/attack_button_pressed.png-1948f6ce12a0f9f092eade3cd6091c93.ctex"
+path="res://.godot/imported/attack_button_pressed.png-b8f2827973ff790d44ce7f3347dfa184.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/buttons/attack_button_pressed.png"
-dest_files=["res://.godot/imported/attack_button_pressed.png-1948f6ce12a0f9f092eade3cd6091c93.ctex"]
+source_file="res://assets/buttons/attack_button_pressed.png"
+dest_files=["res://.godot/imported/attack_button_pressed.png-b8f2827973ff790d44ce7f3347dfa184.ctex"]
 
 [params]
 
