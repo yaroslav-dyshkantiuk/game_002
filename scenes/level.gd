@@ -5,8 +5,6 @@ extends Node2D
 @onready var player: CharacterBody2D = $Player/Player
 @onready var sun: DirectionalLight2D = $Light/Sun
 
-var mushroom_preload = preload("res://scenes/mobs/mushroom.tscn")
-
 enum {
 	MORNING,
 	DAY,
@@ -35,7 +33,7 @@ func _on_day_night_timeout() -> void:
 			morning_state()
 		EVENING:
 			evening_state()
-	Signals.emit_day_time(state)
+	Signals.emit_day_time(state, day_count)
 
 func morning_state():
 	day_count +=1
@@ -44,11 +42,3 @@ func morning_state():
 
 func evening_state():
 	light_animation.play("sunset")
-
-func _on_spawner_timeout() -> void:
-	mushroom_spawn()
-
-func mushroom_spawn():
-	var mushroom = mushroom_preload.instantiate()
-	mushroom.position = Vector2(randi_range(-500, -200), 480)
-	$Mobs.add_child(mushroom)

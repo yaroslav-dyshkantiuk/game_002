@@ -16,7 +16,7 @@ func _on_timer_timeout() -> void:
 		tween.parallel().tween_property(self, "energy", rand, timer.wait_time)
 		timer.wait_time = randf_range(0.4, 0.8)
 
-func _on_time_changed(state):
+func _on_time_changed(state, _day_count):
 	day_state = state
 	if state == 0:
 		light_off()

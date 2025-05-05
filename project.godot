@@ -69,6 +69,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemies"
+2d_physics/layer_4="buildings"
 2d_physics/layer_5="playerHurtBox"
 2d_physics/layer_6="enemyHurtBox"
 

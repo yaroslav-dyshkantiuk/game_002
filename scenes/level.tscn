@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c0aqkwqg4d3iw"]
+[gd_scene load_steps=24 format=4 uid="uid://c0aqkwqg4d3iw"]
 
 [ext_resource type="Script" uid="uid://c57wpcncewxlt" path="res://scenes/level.gd" id="1_8iemx"]
 [ext_resource type="Script" uid="uid://dkhwq1jfxghny" path="res://scripts/manager.gd" id="2_64w2a"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b0h3a8xurv71p" path="res://scenes/Player/player.tscn" id="8_gunhw"]
 [ext_resource type="PackedScene" uid="uid://2bl5cejlwwn4" path="res://scenes/light/lantern.tscn" id="8_wc255"]
 [ext_resource type="PackedScene" uid="uid://cxcte6vbvx6e0" path="res://scenes/UI/pause_menu.tscn" id="9_8gofh"]
+[ext_resource type="PackedScene" uid="uid://c36a56naqk0kk" path="res://scenes/spawner.tscn" id="10_arp2o"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://assets/sprites/oak_woods_v1.0/decorations/circle.png" id="10_h6wmr"]
 [ext_resource type="Script" uid="uid://dam5m5l1or0x3" path="res://scripts/collectibles.gd" id="11_pqd0y"]
 [ext_resource type="PackedScene" uid="uid://b3kbt0lj02jpb" path="res://scenes/collectibles/coin.tscn" id="12_5k0ak"]
@@ -589,14 +590,20 @@ tile_set = SubResource("TileSet_8cye3")
 
 [node name="Mobs" type="Node2D" parent="."]
 
-[node name="Spawner" type="Timer" parent="Mobs"]
-wait_time = 5.0
-autostart = true
+[node name="Spawner" parent="Mobs" instance=ExtResource("10_arp2o")]
+z_index = 2
+position = Vector2(-1507, 496)
+scale = Vector2(0.5, 0.5)
+
+[node name="Spawner2" parent="Mobs" instance=ExtResource("10_arp2o")]
+z_index = 3
+position = Vector2(1505, 493)
+scale = Vector2(0.5, 0.5)
 
 [node name="Player" type="Node2D" parent="."]
-z_index = 1
 
 [node name="Player" parent="Player" instance=ExtResource("8_gunhw")]
+z_index = 3
 position = Vector2(249, 557)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -674,7 +681,6 @@ stream = ExtResource("15_wc255")
 volume_db = -25.0
 autoplay = true
 
-[connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Save" to="Manager" method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Load" to="Manager" method="_on_load_pressed"]

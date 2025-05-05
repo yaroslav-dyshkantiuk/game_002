@@ -23,13 +23,16 @@ var state: int = 0:
 			RECOVER:
 				recover_state()
 
-var player
-var direction
+var player = Vector2.ZERO
+var direction = Vector2.ZERO
 var damage = 20
+var move_speed = 150
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+func _ready() -> void:
+	state = CHASE
 
 func _physics_process(delta: float) -> void:
 	player = Global.player_position
@@ -45,15 +48,18 @@ func _on_attack_range_body_entered(_body: Node2D) -> void:
 		state = ATTACK
 
 func idle_state():
+	velocity.x = 0
 	animation_player.play("Idle")
 	state = CHASE
 	
 func attack_state():
+	velocity.x = 0
 	animation_player.play("Attack")
 	await animation_player.animation_finished
 	state = RECOVER
 	
 func chase_state():
+	animation_player.play("Run")
 	direction = (player - self.position).normalized()
 	if direction.x < 0:
 		animated_sprite_2d.flip_h = true
@@ -61,14 +67,17 @@ func chase_state():
 	else:
 		animated_sprite_2d.flip_h = false
 		$AttackDirection.scale = Vector2(1,1)
+	velocity.x = direction.x * move_speed
 
 func damage_state():
+	velocity.x = 0
 	damage_animation()
 	animation_player.play("Damage")
 	await animation_player.animation_finished
 	state = IDLE
 
 func death_state():
+	velocity.x = 0
 	animation_player.play("Death")
 	print("death_state")
 	Signals.emit_enemy_died(position)
@@ -76,6 +85,7 @@ func death_state():
 	queue_free()
 
 func recover_state():
+	velocity.x = 0
 	animation_player.play("Recover")
 	await  animation_player.animation_finished
 	state = IDLE
@@ -101,3 +111,6 @@ func damage_animation():
 		velocity.x -= 200
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, 'velocity', Vector2.ZERO, 0.1)
+
+func _on_run_timeout() -> void:
+	move_speed = move_toward(move_speed, randi_range(120, 170), 100)
