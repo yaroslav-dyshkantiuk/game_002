@@ -19,6 +19,7 @@ const JUMP_VELOCITY = -400.0
 @onready var stats: CanvasLayer = $stats
 @onready var leafs: GPUParticles2D = $Leafs
 @onready var dust: GPUParticles2D = $Dust
+@onready var smack: AudioStreamPlayer = $Sounds/Smack
 
 var state = MOVE
 var run_speed = 1
@@ -163,7 +164,7 @@ func death():
 	get_tree().change_scene_to_file.call_deferred("res://scenes/menu.tscn")
 
 func _on_damage_received (enemy_damage):
-	stats.health -= enemy_damage
+	smack.play()
 	if stats.health <= 0:
 		death()
 		return
@@ -174,6 +175,7 @@ func _on_damage_received (enemy_damage):
 	else:
 		state = DAMAGE
 		damage_animation()
+	stats.health -= enemy_damage
 
 func _on_stats_no_stamina() -> void:
 	recovery = true

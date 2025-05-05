@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dvdorwrrbfuyl"]
+[gd_scene load_steps=63 format=3 uid="uid://dvdorwrrbfuyl"]
 
 [ext_resource type="Script" uid="uid://b2xfi2h0ywwrm" path="res://scenes/mobs/mushroom.gd" id="1_3ua80"]
 [ext_resource type="Texture2D" uid="uid://bwl7pula4h733" path="res://assets/Mushroom/Attack.png" id="1_sjuu0"]
@@ -9,6 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dqqfqqv8uix3r" path="res://scenes/damageBox/damage_box.tscn" id="7_ufykn"]
 [ext_resource type="Script" uid="uid://byrn78i41df1b" path="res://scenes/damageBox/damage_box.gd" id="7_xshu0"]
 [ext_resource type="PackedScene" uid="uid://glkg7hq7itnk" path="res://scenes/mobs/mob_health.tscn" id="8_xshu0"]
+[ext_resource type="AudioStream" uid="uid://ej03y207534s" path="res://assets/sound/SFX/mushroom/1014.MP3" id="10_gwl1w"]
+[ext_resource type="AudioStream" uid="uid://rvcon5u2m8dp" path="res://assets/sound/SFX/mushroom/1014(1).MP3" id="11_4onxy"]
+[ext_resource type="AudioStream" uid="uid://dtrjod0uls7nv" path="res://assets/sound/SFX/mushroom/1014(2).MP3" id="12_r77bo"]
+[ext_resource type="AudioStream" uid="uid://cyfdwoxdoviva" path="res://assets/sound/SFX/mushroom/1014(3).MP3" id="13_qiq7e"]
+[ext_resource type="AudioStream" uid="uid://dwldcoa35o4ef" path="res://assets/sound/SFX/mushroom/1014(4).MP3" id="14_n2osl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_768lt"]
 
@@ -386,6 +391,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Hurt:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kumnj"]
 length = 3.0
@@ -457,6 +474,18 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sounds/Hurt:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -564,6 +593,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Hurt:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_a3bwr"]
 length = 0.8
@@ -645,6 +686,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_selrt"]
 size = Vector2(25, 18)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gpg8w"]
+streams_count = 5
+stream_0/stream = ExtResource("10_gwl1w")
+stream_1/stream = ExtResource("11_4onxy")
+stream_2/stream = ExtResource("12_r77bo")
+stream_3/stream = ExtResource("13_qiq7e")
+stream_4/stream = ExtResource("14_n2osl")
+
 [node name="Mushroom" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_3ua80")
@@ -655,8 +704,9 @@ shape = SubResource("CapsuleShape2D_768lt")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_jq103")
-animation = &"Idle"
+animation = &"Death"
 autoplay = "Idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -701,7 +751,14 @@ disabled = false
 [node name="MobHealth" parent="." instance=ExtResource("8_xshu0")]
 position = Vector2(0, -26)
 scale = Vector2(0.15, 0.15)
-max_health = 10
+max_health = 20
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_gpg8w")
+volume_db = -10.0
+pitch_scale = 0.93
 
 [connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="area_entered" from="AttackDirection/DamageBox/HurtBox" to="MobHealth" method="_on_hurt_box_area_entered"]
