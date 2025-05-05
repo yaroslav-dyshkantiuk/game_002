@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b0h3a8xurv71p" path="res://scenes/Player/player.tscn" id="8_gunhw"]
 [ext_resource type="PackedScene" uid="uid://2bl5cejlwwn4" path="res://scenes/light/lantern.tscn" id="8_wc255"]
 [ext_resource type="PackedScene" uid="uid://cxcte6vbvx6e0" path="res://scenes/UI/pause_menu.tscn" id="9_8gofh"]
-[ext_resource type="PackedScene" uid="uid://c36a56naqk0kk" path="res://scenes/spawner.tscn" id="10_arp2o"]
+[ext_resource type="PackedScene" uid="uid://dc2i6xj4cfkun" path="res://scenes/Build/spawner.tscn" id="10_arp2o"]
 [ext_resource type="Texture2D" uid="uid://bu3xiwqkpw2eh" path="res://assets/sprites/oak_woods_v1.0/decorations/circle.png" id="10_h6wmr"]
 [ext_resource type="Script" uid="uid://dam5m5l1or0x3" path="res://scripts/collectibles.gd" id="11_pqd0y"]
 [ext_resource type="PackedScene" uid="uid://b3kbt0lj02jpb" path="res://scenes/collectibles/coin.tscn" id="12_5k0ak"]
