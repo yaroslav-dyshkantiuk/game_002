@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Signals="*res://scripts/signals.gd"
 Global="*res://scripts/global.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")

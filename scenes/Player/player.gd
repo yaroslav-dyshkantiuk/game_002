@@ -183,15 +183,15 @@ func _on_stats_no_stamina() -> void:
 	recovery = false
 
 func damage_animation():
-	self.modulate = Color(1, 0, 0, 1)
+	animated_sprite_2d.modulate = Color(1, 0, 0, 1)
 	velocity.x = 0
-	if $AnimatedSprite2D.flip_h == true:
+	if animated_sprite_2d.flip_h == true:
 		velocity.x += 200
 	else:
 		velocity.x -= 200
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(self, 'velocity', Vector2.ZERO, 0.1)
-	tween.parallel().tween_property(self, 'modulate', Color(1, 1, 1, 1), 0.1)
+	tween.parallel().tween_property(animated_sprite_2d, 'modulate', Color(1, 1, 1, 1), 0.1)
 
 func steps():
 	leafs.emitting = true
